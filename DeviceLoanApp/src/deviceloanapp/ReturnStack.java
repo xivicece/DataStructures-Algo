@@ -9,5 +9,14 @@ package deviceloanapp;
  * @author CelinaMoali
  */
 public class ReturnStack {
+    Node top;
+    
+    public ReturnStack(){
+        top = null;
+    }
+    
+    //push returned devices
+    
+    //pop last returned
     
 }

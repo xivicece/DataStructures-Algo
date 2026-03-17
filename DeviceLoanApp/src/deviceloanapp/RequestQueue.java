@@ -9,5 +9,13 @@ package deviceloanapp;
  * @author CelinaMoali
  */
 public class RequestQueue {
+    Node front, rear;
     
+    public RequestQueue(){
+        front = rear = null;
+    }
+    
+    //add request to queue
+    
+    //process next request
 }

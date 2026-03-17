@@ -9,5 +9,11 @@ package deviceloanapp;
  * @author CelinaMoali
  */
 public interface Manager {
-    
+    //add a device to a list
+    void add(Device d); 
+    //remove a device by id
+    boolean remove(String deviceID);
+    //finds a device by id
+    Device search(String deviceID); 
+    void displayAll();
 }
