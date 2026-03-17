@@ -4,10 +4,27 @@
  */
 package deviceloanapp;
 
+import java.util.Date;
+
 /**
  *
  * @author CelinaMoali
  */
 public class Laptop extends Device{
+    private String os;
     
+    //constructor
+    public Laptop(String deviceID, String userID, Date dueDate, String os){
+        super(deviceID, userID, dueDate);
+        this.os = os;
+    }
+    //setters
+    public void setOS(String os){
+        this.os = os;
+    }
+    
+    //getters
+    public String getOS(){
+        return os;
+    }
 }

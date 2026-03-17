@@ -9,5 +9,11 @@ package deviceloanapp;
  * @author CelinaMoali
  */
 public class Node {
+    Device data; // stores device object
+    Node next;
     
+    public Node(Device data){
+        this.data = data; 
+        this.next = null; //next node is null
+    }
 }

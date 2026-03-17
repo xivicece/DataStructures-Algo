@@ -4,10 +4,28 @@
  */
 package deviceloanapp;
 
+import java.util.Date;
 /**
  *
  * @author CelinaMoali
  */
 public class Tablet extends Device{
+    private String model;
+    
+    //constructor
+    public Tablet(String deviceID, String userID, Date dueDate, String model){
+        super(deviceID, userID, dueDate);
+        this.model = model;
+    }
+    
+    //setters
+    public void setModel(String model){
+        this.model = model;
+    }
+    
+    //getters
+    public String getModel(){
+        return model;
+    }
     
 }
