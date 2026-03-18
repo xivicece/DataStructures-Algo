@@ -377,17 +377,70 @@ public class DeviceLoanGUI extends javax.swing.JFrame {
 
         //validation to ensre no field is left blank
         if(firstName.isEmpty() || lastName.isEmpty() || phone.isEmpty() || address.isEmpty() || userID.isEmpty() || deviceID.isEmpty()){
-            javax.swing.JOptionPane.showMessageDialog(this, "please fill in all fields.");
+            JOptionPane.showMessageDialog(this, "please fill in all fields.");
             return;
         }
         
+        //phone number must be 10 digits
+        if(phone.length() != 10){
+            JOptionPane.showMessageDialog(this, "phone number must be 10 digits.");
+            return;
+        }
+
+        //checks each character in phone number is a digit
+        for(int i = 0; i < phone.length(); i++){
+            if(!Character.isDigit(phone.charAt(i))){
+                JOptionPane.showMessageDialog(this, "phone number must only contain numbers.");
+                return;
+            }
+        }
+
+        //user id must be 7 digits
+        if(userID.length() != 7){
+            JOptionPane.showMessageDialog(this, "user id must be 7 digits.");
+            return;
+        }
+
+        //checks each character in user id is a digit
+        for(int i = 0; i < userID.length(); i++){
+            if(!Character.isDigit(userID.charAt(i))){
+                JOptionPane.showMessageDialog(this, "user id must only contain numbers.");
+                return;
+            }
+        }
+        
+        //device id must be 1 letter + 5 digits
+        if(deviceID.length() != 6){
+            JOptionPane.showMessageDialog(this, "device id must be 6 characters long.");
+            return;
+        }
+
+        //first character must be T or L
+        char first = deviceID.charAt(0);
+        if(first != 'T' && first != 'L'){
+            JOptionPane.showMessageDialog(this, "device id must start with T or L.");
+            return;
+        }
+
+        //last 5 characters must all be digits
+        for(int i = 1; i < deviceID.length(); i++){
+            if(!Character.isDigit(deviceID.charAt(i))){
+                JOptionPane.showMessageDialog(this, "last 5 characters of device id must be numbers.");
+                return;
+            }
+        }
+        //checks if device id already exists
+        if(deviceList.search(deviceID) != null){
+            JOptionPane.showMessageDialog(this, "device id already exists.");
+            return;
+        }
         //crete a new user object from entered details
         User user = new User(userID, firstName, lastName, phone, address);
         
         //sets a due date 30 days from today
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        cal.add(java.util.Calendar.DAY_OF_MONTH, 30);
-        java.util.Date dueDate = cal.getTime();
+        Calendar cal = java.util.Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, 30);
+        Date dueDate = cal.getTime();
 
         Device device;
         
@@ -407,7 +460,7 @@ public class DeviceLoanGUI extends javax.swing.JFrame {
         //refresh the gui to show new data
         refreshTables();
 
-        javax.swing.JOptionPane.showMessageDialog(this, "device added successfully.");
+        JOptionPane.showMessageDialog(this, "device added successfully.");
 
         jTextField1.setText("");
         jTextField2.setText("");
@@ -421,17 +474,36 @@ public class DeviceLoanGUI extends javax.swing.JFrame {
     // pushingit to return stack
     private void ReturnBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnBtnActionPerformed
         String deviceID = jTextField6.getText();
-
         if(deviceID.isEmpty()){
-            javax.swing.JOptionPane.showMessageDialog(this, "enter a device id.");
+            JOptionPane.showMessageDialog(this, "enter a device id.");
             return;
         }
         
+        //device id must be 1 letter + 5 digits
+        if(deviceID.length() != 6){
+            JOptionPane.showMessageDialog(this, "device id must be 6 characters long.");
+            return;
+        }
+
+        //first character must be T or L
+        char first = deviceID.charAt(0);
+        if(first != 'T' && first != 'L'){
+            JOptionPane.showMessageDialog(this, "device id must start with T or L.");
+            return;
+        }
+
+        //last 5 characters must all be digits
+        for(int i = 1; i < deviceID.length(); i++){
+            if(!Character.isDigit(deviceID.charAt(i))){
+                JOptionPane.showMessageDialog(this, "last 5 characters of device id must be numbers.");
+                return;
+            }
+        }
         //search for the device in active loans
         Device d = deviceList.search(deviceID);
 
         if(d == null){
-            javax.swing.JOptionPane.showMessageDialog(this, "device not found.");
+            JOptionPane.showMessageDialog(this, "device not found.");
             return;
         }
         
@@ -440,9 +512,12 @@ public class DeviceLoanGUI extends javax.swing.JFrame {
         
         //remove the devices from the active loan list
         deviceList.remove(deviceID);
+        
+        //removing the device form awaiting queue too
+        requestQueue.removeByDeviceID(deviceID);
+        
         refreshTables();
-
-        javax.swing.JOptionPane.showMessageDialog(this, "device returned successfully.");
+        JOptionPane.showMessageDialog(this, "device returned successfully.");
 
     }//GEN-LAST:event_ReturnBtnActionPerformed
 
@@ -455,24 +530,40 @@ public class DeviceLoanGUI extends javax.swing.JFrame {
     private void ExtendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtendBtnActionPerformed
         String deviceID = jTextField6.getText();
         if(deviceID.isEmpty()){
-            javax.swing.JOptionPane.showMessageDialog(this, "enter a device id.");
+            JOptionPane.showMessageDialog(this, "enter a device id.");
+            return;
+        }      
+        //device id must be 1 letter + 5 digits
+        if(deviceID.length() != 6){
+            javax.swing.JOptionPane.showMessageDialog(this, "device id must be 6 characters long.");
             return;
         }
-        
+        //first character must be T or L
+        char first = deviceID.charAt(0);
+        if(first != 'T' && first != 'L'){
+            javax.swing.JOptionPane.showMessageDialog(this, "device id must start with T or L.");
+            return;
+        }
+        //last 5 characters must all be digits
+        for(int i = 1; i < deviceID.length(); i++){
+            if(!Character.isDigit(deviceID.charAt(i))){
+                javax.swing.JOptionPane.showMessageDialog(this, "last 5 characters of device id must be numbers.");
+                return;
+            }
+        }
         //search for the device first
         Device d = deviceList.search(deviceID);
         if(d == null){
             javax.swing.JOptionPane.showMessageDialog(this, "device not found.");
             return;
-        }
-        
+        }        
         //update the due date by adding another 30 days
-        java.util.Calendar cal = java.util.Calendar.getInstance();
+        Calendar cal = java.util.Calendar.getInstance();
         cal.setTime(d.getDueDate());
         cal.add(java.util.Calendar.DAY_OF_MONTH, 30);
         d.setDueDate(cal.getTime());
         refreshTables();
-        javax.swing.JOptionPane.showMessageDialog(this, "loan extended by 30 days.");
+        JOptionPane.showMessageDialog(this, "loan extended by 30 days.");
     }//GEN-LAST:event_ExtendBtnActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
