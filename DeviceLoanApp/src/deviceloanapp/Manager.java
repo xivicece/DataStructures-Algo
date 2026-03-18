@@ -15,5 +15,6 @@ public interface Manager {
     boolean remove(String deviceID);
     //finds a device by id
     Device search(String deviceID); 
+    //displays all stored devices
     void displayAll();
 }

@@ -30,7 +30,7 @@ public class User {
     public String getFirstName(){
         return firstName;
     }
-    public String getlastName(){
+    public String getLastName(){
         return lastName;
     }
     public String getPhone(){

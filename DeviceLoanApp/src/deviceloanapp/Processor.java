@@ -11,6 +11,6 @@ package deviceloanapp;
 public interface Processor {
     //handle next request in the queue
     void processRequest();
-    //extend loan by a month
+    //extend loan date by a month
     void extendLoan(Device d);
 }

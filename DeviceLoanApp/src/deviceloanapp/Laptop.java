@@ -10,12 +10,14 @@ import java.util.Date;
  *
  * @author CelinaMoali
  */
+
+//this class adds an os field
 public class Laptop extends Device{
     private String os;
     
     //constructor
     public Laptop(String deviceID, String userID, Date dueDate, String os){
-        super(deviceID, userID, dueDate);
+        super(deviceID, userID, dueDate); //calls class constructor in device class first
         this.os = os;
     }
     //setters

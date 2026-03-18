@@ -8,6 +8,10 @@ package deviceloanapp;
  *
  * @author CelinaMoali
  */
-public class DeviceApp {
-    
+
+//main class for the program to run, opening the gui
+public class DeviceLoanApp {
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(() -> new DeviceLoanGUI().setVisible(true));
+    }
 }
